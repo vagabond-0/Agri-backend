@@ -30,7 +30,5 @@ public class CropService {
                 .collect(Collectors.toList());
     }
 
-    public List<CropDto> GetCropSuggestionBasedOnWeather(@RequestParam float Weather, @RequestParam float Humidity, @RequestParam Date Month){
-        CropEntity cropEntity =
-    }
+
 }

@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.UUID;
 
 public interface CropRepository extends JpaRepository<CropEntity, UUID> {
-   
 }

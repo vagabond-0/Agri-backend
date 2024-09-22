@@ -3,6 +3,7 @@ package com.example.Agri.Service;
 
 import com.example.Agri.Dto.FarmerDto;
 import com.example.Agri.Entity.FarmerEntity;
+import com.example.Agri.Exception.FarmerException;
 import com.example.Agri.Repository.FarmerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +25,25 @@ public class FarmerService {
         this.farmerRepository = farmerRepository;
     }
 
-    public FarmerDto FarmerLogin(String username,String Password){
-        FarmerEntity farmerEntity = farmerRepository.findByUsernameAndPassword(username,Password);
+    public FarmerDto farmerLogin(String username, String password) {
+        FarmerEntity farmerEntity = farmerRepository.findByUsernameAndPassword(username, password);
 
-        if(farmerEntity == null){
-            throw new RuntimeException("Invalid username or password");
+        if (farmerEntity == null) {
+            throw new FarmerException.InvalidCredentialsException("Invalid username or password");
         }
 
-        return modelMapper.map(farmerEntity,FarmerDto.class);
+        return modelMapper.map(farmerEntity, FarmerDto.class);
     }
-    public FarmerDto CreateFarmer(FarmerDto farmerDto){
-        FarmerEntity farmerEntity = modelMapper.map(farmerDto,FarmerEntity.class);
-        FarmerEntity savedEntity = farmerRepository.save(farmerEntity);
-        return  modelMapper.map(savedEntity,FarmerDto.class);
-    }
+    public FarmerDto createFarmer(FarmerDto farmerDto) {
+        Optional<FarmerEntity> existingFarmer = farmerRepository.findByUsername(farmerDto.getUsername());
+        if (existingFarmer.isPresent()) {
+            throw new FarmerException.FarmerAlreadyExistsException("Username already exists");
+        }
 
+        FarmerEntity farmerEntity = modelMapper.map(farmerDto, FarmerEntity.class);
+        FarmerEntity savedEntity = farmerRepository.save(farmerEntity);
+        return modelMapper.map(savedEntity, FarmerDto.class);
+    }
     public FarmerDto DeleteFarmer(UUID id){
         Optional<FarmerEntity> optionalFarmerEntity = farmerRepository.findById(id);
         if (optionalFarmerEntity.isPresent()) {
