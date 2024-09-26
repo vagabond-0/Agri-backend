@@ -2,6 +2,7 @@ package com.example.Agri.Service;
 
 
 import com.example.Agri.Dto.FarmerDto;
+import com.example.Agri.Dto.UserDto;
 import com.example.Agri.Entity.FarmerEntity;
 import com.example.Agri.Exception.FarmerException;
 import com.example.Agri.Repository.FarmerRepository;
@@ -61,4 +62,22 @@ public class FarmerService {
                 .map(farmerEntity -> modelMapper.map(farmerEntity, FarmerDto.class))
                 .collect(Collectors.toList());
     }
+
+    public UserDto getFarmerByUsername(String username) {
+        Optional<FarmerEntity> optionalFarmerEntity = farmerRepository.findByUsername(username);
+
+        if (optionalFarmerEntity.isPresent()) {
+            FarmerEntity farmerEntity = optionalFarmerEntity.get();
+
+            UserDto userDto = new UserDto(
+                    farmerEntity.getFarmerFirstName(),
+                    farmerEntity.getFarmerLastName()
+            );
+
+            return userDto;
+        } else {
+            return null;
+        }
+    }
+
 }

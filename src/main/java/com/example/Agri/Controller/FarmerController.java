@@ -3,6 +3,7 @@ package com.example.Agri.Controller;
 
 import com.example.Agri.Dto.FarmerDto;
 import com.example.Agri.Dto.LoginRequest;
+import com.example.Agri.Dto.UserDto;
 import com.example.Agri.Exception.FarmerException;
 import com.example.Agri.Service.FarmerService;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,11 @@ public class FarmerController {
     @GetMapping("/AllFarmer")
     public List<FarmerDto> getallFarmer(){
         return farmerService.getAllFarmer();
+    }
+
+
+    @GetMapping("/getuser")
+    public UserDto getFarmerByUsername(@RequestParam String username){
+        return farmerService.getFarmerByUsername(username);
     }
 }
