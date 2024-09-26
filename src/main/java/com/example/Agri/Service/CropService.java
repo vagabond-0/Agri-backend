@@ -30,5 +30,12 @@ public class CropService {
                 .collect(Collectors.toList());
     }
 
+    public List<CropDto> getCropByWeatherAndMonth(float weather, Date month) {
+        List<CropEntity> cropEntities = cropRepository.findCropsByWeatherAndMonth(weather, month);
+        return cropEntities.stream()
+                .map(cropEntity -> modelMapper.map(cropEntity, CropDto.class))
+                .collect(Collectors.toList());
+    }
+
 
 }
