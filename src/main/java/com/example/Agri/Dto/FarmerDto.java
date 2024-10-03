@@ -17,8 +17,8 @@ public class FarmerDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID id;
-    public String FarmerFirstName;
-    public String FarmerLastName;
+    public String farmerFirstName;
+    public String farmerLastName;
     private String Username;
     private String Password;
 }

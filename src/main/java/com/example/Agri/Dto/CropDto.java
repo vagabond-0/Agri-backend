@@ -17,6 +17,7 @@ public class CropDto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID id;
     public String cropName;
+    public int TimeRequiredForHarvest;
     public float weatherStart;
     public float weatherEnd;
     public float humidityStart;

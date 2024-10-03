@@ -22,6 +22,9 @@ public class CropEntity {
     @Column(name = "crop_name", nullable = false)
     private String cropName;
 
+    @Column(name = "HarvestTime", nullable = false)
+    private int TimeRequiredForHarvest;
+
     @Column(name = "weather_start", nullable = false)
     private float weatherStart;
 
