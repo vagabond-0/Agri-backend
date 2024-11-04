@@ -1,17 +1,15 @@
 package com.example.Agri.Service;
 
 
-import com.example.Agri.Dto.CropDto;
+import com.example.Agri.Dto.cropdto;
 import com.example.Agri.Entity.CropEntity;
 import com.example.Agri.Repository.CropRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,25 +22,25 @@ public class CropService {
         this.cropRepository = cropRepository;
     }
 
-    public List<CropDto> GetAllCrop(){
+    public List<cropdto> GetAllCrop(){
         List<CropEntity> cropEntities = cropRepository.findAll();
         return cropEntities.stream()
-                .map(cropEntity -> modelMapper.map(cropEntity,CropDto.class))
+                .map(cropEntity -> modelMapper.map(cropEntity, cropdto.class))
                 .collect(Collectors.toList());
     }
 
-    public List<CropDto> getCropByWeatherAndMonth(float weather, Date month) {
+    public List<cropdto> getCropByWeatherAndMonth(float weather, Date month) {
         List<CropEntity> cropEntities = cropRepository.findCropsByWeatherAndMonth(weather, month);
         return cropEntities.stream()
-                .map(cropEntity -> modelMapper.map(cropEntity, CropDto.class))
+                .map(cropEntity -> modelMapper.map(cropEntity, cropdto.class))
                 .collect(Collectors.toList());
     }
 
 
-    public CropDto getCropById(String id) {
+    public cropdto getCropById(String id) {
         UUID id1 = UUID.fromString(id);
         return cropRepository.findById(id1)
-                .map(cropEntity -> modelMapper.map(cropEntity, CropDto.class)) // Use ModelMapper for conversion
+                .map(cropEntity -> modelMapper.map(cropEntity, cropdto.class)) // Use ModelMapper for conversion
                 .orElse(null); // Return null if not found
     }
 }

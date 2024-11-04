@@ -1,6 +1,7 @@
 package com.example.Agri.Service;
 
 import com.example.Agri.Dto.CropDto;
+import com.example.Agri.Dto.cropdto;
 import com.example.Agri.Dto.RegistrationDto;
 import com.example.Agri.Entity.CropEntity;
 import com.example.Agri.Entity.FarmerEntity;
@@ -53,15 +54,16 @@ public class RegisterService {
 
         return modelMapper.map(registrationEntity, RegistrationDto.class);
     }
-    public List<CropDto> getAllRegisteredCrops(UUID farmerId) {
+    public List<cropdto> getAllRegisteredCrops(UUID farmerId) {
         // Fetch all registrations for the given farmer ID
         List<RegistrationEntity> registrations = registerationRepository.findByFarmerId(farmerId);
 
         // Map RegistrationEntity to CropDto
         return registrations.stream()
                 .map(registration -> {
-                    CropEntity crop = registration.getCrop();
-                    return modelMapper.map(crop, CropDto.class);
+                    cropdto cropDto = modelMapper.map(registration.getCrop(), cropdto.class);
+                    cropDto.setDaysRemaining(registration.getTimeLeftToHarvest());
+                    return cropDto;
                 })
                 .collect(Collectors.toList());
     }

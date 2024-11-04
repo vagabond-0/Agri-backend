@@ -1,7 +1,7 @@
 package com.example.Agri.Controller;
 
 
-import com.example.Agri.Dto.CropDto;
+import com.example.Agri.Dto.cropdto;
 import com.example.Agri.Dto.RegisterRequestDto;
 import com.example.Agri.Dto.RegistrationDto;
 import com.example.Agri.Service.RegisterService;
@@ -33,9 +33,9 @@ public class RegisterController {
     }
 
     @GetMapping("/getUserCrop")
-    public ResponseEntity<List<CropDto>> getUserCrops(@RequestParam("userId") String userId) {
+    public ResponseEntity<List<cropdto>> getUserCrops(@RequestParam("userId") String userId) {
         UUID farmerId = UUID.fromString(userId);
-        List<CropDto> userCrops = registerService.getAllRegisteredCrops(farmerId);
+        List<cropdto> userCrops = registerService.getAllRegisteredCrops(farmerId);
         return ResponseEntity.ok(userCrops);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.Agri.Controller;
 
 
-import com.example.Agri.Dto.CropDto;
+import com.example.Agri.Dto.cropdto;
 import com.example.Agri.Service.CropService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +21,19 @@ public class CropController {
     }
 
     @GetMapping("/getcrop")
-    public List<CropDto> getAllCrop(){
+    public List<cropdto> getAllCrop(){
         return cropService.GetAllCrop();
     }
     @GetMapping("/suggestionByWeatherAndMonth")
-    public List<CropDto> getCropByWeatherAndMonth(
+    public List<cropdto> getCropByWeatherAndMonth(
             @RequestParam float weather,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date month) {
         return cropService.getCropByWeatherAndMonth(weather, month);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CropDto> getCropById(@PathVariable String id) {
-        CropDto crop = cropService.getCropById(id);
+    public ResponseEntity<cropdto> getCropById(@PathVariable String id) {
+        cropdto crop = cropService.getCropById(id);
         if (crop != null) {
             return ResponseEntity.ok(crop);
         } else {
