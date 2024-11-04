@@ -1,5 +1,6 @@
 package com.example.Agri.Service;
 
+import com.example.Agri.Dto.CropDto;
 import com.example.Agri.Dto.RegistrationDto;
 import com.example.Agri.Entity.CropEntity;
 import com.example.Agri.Entity.FarmerEntity;
@@ -11,8 +12,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -50,4 +53,18 @@ public class RegisterService {
 
         return modelMapper.map(registrationEntity, RegistrationDto.class);
     }
+    public List<CropDto> getAllRegisteredCrops(UUID farmerId) {
+        // Fetch all registrations for the given farmer ID
+        List<RegistrationEntity> registrations = registerationRepository.findByFarmerId(farmerId);
+
+        // Map RegistrationEntity to CropDto
+        return registrations.stream()
+                .map(registration -> {
+                    CropEntity crop = registration.getCrop();
+                    return modelMapper.map(crop, CropDto.class);
+                })
+                .collect(Collectors.toList());
+    }
+
+
 }

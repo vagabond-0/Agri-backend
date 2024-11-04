@@ -30,4 +30,14 @@ public class CropController {
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date month) {
         return cropService.getCropByWeatherAndMonth(weather, month);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CropDto> getCropById(@PathVariable String id) {
+        CropDto crop = cropService.getCropById(id);
+        if (crop != null) {
+            return ResponseEntity.ok(crop);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

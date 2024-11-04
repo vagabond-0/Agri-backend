@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -38,4 +39,10 @@ public class CropService {
     }
 
 
+    public CropDto getCropById(String id) {
+        UUID id1 = UUID.fromString(id);
+        return cropRepository.findById(id1)
+                .map(cropEntity -> modelMapper.map(cropEntity, CropDto.class)) // Use ModelMapper for conversion
+                .orElse(null); // Return null if not found
+    }
 }

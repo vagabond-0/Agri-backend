@@ -1,14 +1,15 @@
 package com.example.Agri.Controller;
 
 
+import com.example.Agri.Dto.CropDto;
 import com.example.Agri.Dto.RegisterRequestDto;
 import com.example.Agri.Dto.RegistrationDto;
 import com.example.Agri.Service.RegisterService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/Register")
@@ -29,5 +30,12 @@ public class RegisterController {
         );
 
         return ResponseEntity.ok(registeredCrop);
+    }
+
+    @GetMapping("/getUserCrop")
+    public ResponseEntity<List<CropDto>> getUserCrops(@RequestParam("userId") String userId) {
+        UUID farmerId = UUID.fromString(userId);
+        List<CropDto> userCrops = registerService.getAllRegisteredCrops(farmerId);
+        return ResponseEntity.ok(userCrops);
     }
 }

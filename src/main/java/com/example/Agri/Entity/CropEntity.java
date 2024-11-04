@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,20 +24,29 @@ public class CropEntity {
     @Column(name = "crop_name", nullable = false)
     private String cropName;
 
-    @Column(name = "HarvestTime", nullable = false)
-    private int TimeRequiredForHarvest;
+    @Column(name = "harvest_time", nullable = false)
+    private int harvestTime; // Renamed to follow naming conventions
 
-    @Column(name = "weather_start", nullable = false)
-    private float weatherStart;
-
-    @Column(name = "weather_end", nullable = false)
-    private float weatherEnd;
+    @Column(name = "time_water", nullable = false)
+    private LocalTime timeWater; // Added field for water time
 
     @Column(name = "humidity_start", nullable = false)
     private float humidityStart;
 
     @Column(name = "humidity_end", nullable = false)
     private float humidityEnd;
+
+    @Column(name = "market_price", nullable = false)
+    private long marketPrice;
+
+    @Column(name = "soil_moisture", nullable = false)
+    private float soilMoisture;
+
+    @Column(name = "soil_ph", nullable = false)
+    private float soilPh;
+
+    @Column(name = "soil_type", nullable = false)
+    private String soilType;
 
     @Column(name = "suitable_month_start", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -45,15 +56,9 @@ public class CropEntity {
     @Temporal(TemporalType.DATE)
     private Date suitableMonthEnd;
 
-    @Column(name = "market_price", nullable = false)
-    private long marketPrice;
+    @Column(name = "weather_start", nullable = false)
+    private float weatherStart;
 
-    @Column(name = "soil_type", nullable = false)
-    private String soilType;
-
-    @Column(name = "soil_ph", nullable = false)
-    private float soilPh;
-
-    @Column(name = "soil_moisture", nullable = false)
-    private float soilMoisture;
+    @Column(name = "weather_end", nullable = false)
+    private float weatherEnd;
 }

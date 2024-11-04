@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,7 +19,8 @@ public class CropDto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID id;
     public String cropName;
-    public int TimeRequiredForHarvest;
+    public int harvestTime;
+    public LocalTime timeWater;
     public float weatherStart;
     public float weatherEnd;
     public float humidityStart;
